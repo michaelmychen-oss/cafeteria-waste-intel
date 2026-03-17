@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 from datetime import date, datetime
-from typing import Optional
+from typing import Optional, List, Dict
 
 
 # --- Schools ---
@@ -80,9 +80,9 @@ class AnalysisResponse(BaseModel):
     report_id: int
     waste_level: str
     waste_percentage: float
-    drivers: list[str]
-    recommendations: list[str]
-    menu_items: list[MenuItemResponse]
+    drivers: List[str]
+    recommendations: List[str]
+    menu_items: List[MenuItemResponse]
 
 
 class DashboardStats(BaseModel):
@@ -90,5 +90,5 @@ class DashboardStats(BaseModel):
     total_reports: int
     avg_waste_percentage: float
     total_waste_lbs: float
-    trend: list[dict]
-    school_comparison: list[dict]
+    trend: List[Dict]
+    school_comparison: List[Dict]

@@ -1,3 +1,5 @@
+from typing import List
+
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
@@ -17,7 +19,7 @@ def create_school(school: SchoolCreate, db: Session = Depends(get_db)):
     return db_school
 
 
-@router.get("/", response_model=list[SchoolResponse])
+@router.get("/", response_model=List[SchoolResponse])
 def list_schools(db: Session = Depends(get_db)):
     return db.query(School).all()
 

@@ -1,5 +1,6 @@
 import json
 from datetime import datetime, date
+from typing import Optional, List
 
 from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, Form
 from sqlalchemy.orm import Session
@@ -154,8 +155,8 @@ async def upload_and_analyze(
         raise HTTPException(status_code=500, detail=f"Processing failed: {str(e)}")
 
 
-@router.get("/", response_model=list[ReportResponse])
-def list_reports(school_id: int | None = None, db: Session = Depends(get_db)):
+@router.get("/", response_model=List[ReportResponse])
+def list_reports(school_id: Optional[int] = None, db: Session = Depends(get_db)):
     query = db.query(Report)
     if school_id:
         query = query.filter(Report.school_id == school_id)
@@ -170,7 +171,7 @@ def get_report(report_id: int, db: Session = Depends(get_db)):
     return report
 
 
-def _parse_date(date_str: str | None) -> date | None:
+def _parse_date(date_str: Optional[str] = None) -> Optional[date]:
     if not date_str:
         return None
     try:

@@ -59,7 +59,7 @@ def analyze_waste(structured_data: dict) -> dict:
     return _parse_json_response(response)
 
 
-def analyze_trends(historical_data: list[dict]) -> dict:
+def analyze_trends(historical_data: list) -> dict:
     prompt = TREND_ANALYSIS % json.dumps(historical_data, indent=2)
     response = _call_claude(prompt)
     return _parse_json_response(response)

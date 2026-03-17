@@ -21,7 +21,7 @@ def predict_waste_level(waste_percentage: float) -> WasteLevel:
         return WasteLevel.CRITICAL
 
 
-def identify_waste_drivers(menu_items: list[dict]) -> list[str]:
+def identify_waste_drivers(menu_items: list) -> list:
     """Identify likely drivers of waste from menu item data."""
     drivers = []
 
@@ -59,8 +59,8 @@ def identify_waste_drivers(menu_items: list[dict]) -> list[str]:
 
 
 def generate_recommendations(
-    waste_level: WasteLevel, drivers: list[str], menu_items: list[dict]
-) -> list[str]:
+    waste_level: WasteLevel, drivers: list, menu_items: list
+) -> list:
     """Generate actionable recommendations based on waste analysis."""
     recs = []
 
@@ -104,7 +104,7 @@ def generate_recommendations(
     return recs
 
 
-def calculate_waste_stats(menu_items: list[dict]) -> dict:
+def calculate_waste_stats(menu_items: list) -> dict:
     """Calculate aggregate waste statistics from menu item data."""
     total_prepared = sum(i.get("servings_prepared") or 0 for i in menu_items)
     total_served = sum(i.get("servings_served") or 0 for i in menu_items)
@@ -120,7 +120,7 @@ def calculate_waste_stats(menu_items: list[dict]) -> dict:
     }
 
 
-def get_historical_trend(db: Session, school_id: int, limit: int = 30) -> list[dict]:
+def get_historical_trend(db: Session, school_id: int, limit: int = 30) -> list:
     """Pull recent waste records for trend analysis."""
     records = (
         db.query(WasteRecord)

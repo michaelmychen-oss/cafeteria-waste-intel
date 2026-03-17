@@ -1,4 +1,5 @@
 import json
+from typing import Optional, List
 
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
@@ -75,9 +76,9 @@ def get_school_trend(school_id: int, db: Session = Depends(get_db)):
     return get_historical_trend(db, school_id)
 
 
-@router.get("/waste-records", response_model=list[WasteRecordResponse])
+@router.get("/waste-records", response_model=List[WasteRecordResponse])
 def list_waste_records(
-    school_id: int | None = None,
+    school_id: Optional[int] = None,
     limit: int = 50,
     db: Session = Depends(get_db),
 ):
